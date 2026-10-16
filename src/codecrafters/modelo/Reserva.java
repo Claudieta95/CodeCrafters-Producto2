@@ -1,3 +1,4 @@
+package codecrafters.modelo;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -27,10 +28,26 @@ public class Reserva {
 
     // Método para añadir una línea de reserva
     public void agregarLineaReserva(Habitacion habitacion, double precioNoche) {
-        LineaReserva linea = new LineaReserva(habitacion, precioNoche, this);
-        if (!this.lineasReserva.contains(linea)) {
-            this.lineasReserva.add(linea);
+        if (habitacion == null) {
+            throw new IllegalArgumentException("La habitación no puede ser nula.");
         }
+
+        if (!validarFechas()) {
+            throw new IllegalArgumentException("Las fechas de la reserva no son válidas.");
+        }
+
+        if (!habitacion.estaDisponible(fechaEntrada, fechaSalida)) {
+            throw new IllegalStateException("La habitación no está disponible para esas fechas.");
+        }
+
+        for (LineaReserva linea : lineasReserva) {
+            if (linea.getHabitacion() == habitacion) {
+                throw new IllegalStateException("La habitación ya está incluida en esta reserva.");
+            }
+        }
+    
+
+        new LineaReserva(habitacion, precioNoche, this);
     }
 
     // Método calculo total reserva
@@ -51,20 +68,8 @@ public class Reserva {
         return fechaEntrada.isBefore(fechaSalida);
     }
 
-    public void modificar() {
-        this.estado = "Modificada";
-    }
-
     public void cancelar() {
         this.estado = "Cancelada";
-    }
-
-    public boolean validarNumeroPersonas() {
-        return this.numeroPersonas > 0;
-    }
-
-    public boolean esDuplicada() {
-        return false; 
     }
 
     // Getters y Setters

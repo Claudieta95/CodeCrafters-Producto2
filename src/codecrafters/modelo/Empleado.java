@@ -1,3 +1,4 @@
+package codecrafters.modelo;
 public class Empleado extends Persona {
     private String puesto;
 

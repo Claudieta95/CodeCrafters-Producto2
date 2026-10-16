@@ -1,4 +1,4 @@
-import java.util.regex.Pattern;
+package codecrafters.modelo;
 
 public abstract class Persona {
     private int idPersona;
@@ -15,16 +15,6 @@ public abstract class Persona {
         this.email = email;
         this.telefono = telefono;
         this.idPersona = 0; // Inicializar idPersona en 0
-    }
-
-    //metodo
-    public boolean validarEmail() {
-        if (this.email == null) {
-            return false;
-        }
-        // para comprobar formato de correo
-        String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
-        return Pattern.matches(regex, this.email);
     }
 
     public int getIdPersona() {
