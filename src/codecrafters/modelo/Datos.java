@@ -93,7 +93,7 @@ public class Datos {
     public List<Habitacion> listarHabitacionesPorHotel(Hotel hotel) {
         List<Habitacion> resultados = new ArrayList<>();
 
-        if (hotel != null) {
+        if (hotel != null && hotel.getHabitaciones() != null) {
             resultados.addAll(hotel.getHabitaciones());
         }
 
@@ -107,7 +107,8 @@ public class Datos {
 
         List<Habitacion> resultados = new ArrayList<>();
 
-        if (hotel == null || fechaEntrada == null || fechaSalida == null
+        if (hotel == null || hotel.getHabitaciones() == null
+                || fechaEntrada == null || fechaSalida == null
                 || !fechaEntrada.isBefore(fechaSalida)) {
             return resultados;
         }
