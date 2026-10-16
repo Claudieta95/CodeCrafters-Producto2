@@ -1,7 +1,6 @@
 package codecrafters.modelo;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.time.LocalDate;
 
@@ -16,32 +15,17 @@ public class Datos {
         this.hoteles = new ArrayList<>();
         this.reservas = new ArrayList<>();
 
-        // Hoteles y habitaciones de ejemplo para probar la aplicación
-        Hotel hotelBarcelona = new Hotel(
-                1,
-                "Hotel Barcelona Centro",
-                "Barcelona",
-                4,
-                new ArrayList<>(Arrays.asList(
-                        new Habitacion(1, 101, "Individual", 1, 65.0),
-                        new Habitacion(2, 102, "Doble", 2, 95.0),
-                        new Habitacion(3, 103, "Familiar", 4, 150.0)
-                ))
-        );
+        // Hoteles y habitaciones de ejemplo para probar el programa.
+        List<Habitacion> habitacionesBarcelona = new ArrayList<>();
+        habitacionesBarcelona.add(new Habitacion(1, 101, "Individual", 1, 60.0));
+        habitacionesBarcelona.add(new Habitacion(2, 102, "Doble", 2, 90.0));
 
-        Hotel hotelSabadell = new Hotel(
-                2,
-                "Hotel Sabadell",
-                "Sabadell",
-                3,
-                new ArrayList<>(Arrays.asList(
-                        new Habitacion(4, 201, "Doble", 2, 80.0),
-                        new Habitacion(5, 202, "Familiar", 3, 120.0)
-                ))
-        );
+        List<Habitacion> habitacionesMadrid = new ArrayList<>();
+        habitacionesMadrid.add(new Habitacion(3, 201, "Doble", 2, 85.0));
+        habitacionesMadrid.add(new Habitacion(4, 202, "Familiar", 4, 140.0));
 
-        agregarHotel(hotelBarcelona);
-        agregarHotel(hotelSabadell);
+        agregarHotel(new Hotel(1, "Hotel Barcelona", "Barcelona", 4, habitacionesBarcelona));
+        agregarHotel(new Hotel(2, "Hotel Madrid", "Madrid", 3, habitacionesMadrid));
     }
 
     public List<Cliente> getClientes() {
@@ -56,22 +40,18 @@ public class Datos {
         return reservas;
     }
 
-    // Añadir un cliente
     public void agregarCliente(Cliente cliente) {
         if (cliente != null) {
             clientes.add(cliente);
         }
     }
 
-    // Listar todos los clientes
     public List<Cliente> listarClientes() {
         return clientes;
     }
 
-    // Buscar clientes por nombre o apellido
     public List<Cliente> buscarClientes(String texto) {
         List<Cliente> resultados = new ArrayList<>();
-
         if (texto == null) {
             return resultados;
         }
@@ -82,26 +62,21 @@ public class Datos {
                 resultados.add(cliente);
             }
         }
-
         return resultados;
     }
 
-    // Añadir un hotel
     public void agregarHotel(Hotel hotel) {
         if (hotel != null) {
             hoteles.add(hotel);
         }
     }
 
-    // Listar todos los hoteles
     public List<Hotel> listarHoteles() {
         return hoteles;
     }
 
-    // Buscar hoteles por ciudad
     public List<Hotel> buscarHotelesPorCiudad(String ciudad) {
         List<Hotel> resultados = new ArrayList<>();
-
         if (ciudad == null) {
             return resultados;
         }
@@ -111,25 +86,19 @@ public class Datos {
                 resultados.add(hotel);
             }
         }
-
         return resultados;
     }
 
-    // Listar las habitaciones de un hotel
     public List<Habitacion> listarHabitacionesPorHotel(Hotel hotel) {
         List<Habitacion> resultados = new ArrayList<>();
 
         if (hotel != null && hotel.getHabitaciones() != null) {
             resultados.addAll(hotel.getHabitaciones());
         }
-
         return resultados;
     }
 
-    // Filtrar habitaciones por número de personas
-    public List<Habitacion> filtrarHabitacionesPorCapacidad(
-            Hotel hotel, int numeroPersonas) {
-
+    public List<Habitacion> filtrarHabitacionesPorCapacidad(Hotel hotel, int numeroPersonas) {
         if (numeroPersonas <= 0) {
             throw new CapacidadInvalidaException(
                     "El número de personas debe ser mayor que cero.");
@@ -146,14 +115,11 @@ public class Datos {
                 resultados.add(habitacion);
             }
         }
-
         return resultados;
     }
 
-    // Buscar habitaciones disponibles por fechas y capacidad
     public List<Habitacion> buscarHabitacionesDisponibles(
-            Hotel hotel, LocalDate fechaEntrada, LocalDate fechaSalida,
-            int numeroPersonas) {
+            Hotel hotel, LocalDate fechaEntrada, LocalDate fechaSalida, int numeroPersonas) {
 
         List<Habitacion> resultados = new ArrayList<>();
 
@@ -169,15 +135,12 @@ public class Datos {
                 resultados.add(habitacion);
             }
         }
-
         return resultados;
     }
 
-    // Añadir una reserva
     public void agregarReserva(Reserva reserva) {
         if (reserva == null || !reserva.validarFechas()) {
-            throw new IllegalArgumentException(
-                    "La reserva no tiene fechas válidas.");
+            throw new IllegalArgumentException("La reserva no tiene fechas válidas.");
         }
 
         if (reserva.getLineasReserva().isEmpty()) {
@@ -191,12 +154,10 @@ public class Datos {
         }
     }
 
-    // Listar todas las reservas
     public List<Reserva> listarReservas() {
         return reservas;
     }
 
-    // Buscar reservas de un cliente
     public List<Reserva> buscarReservasPorCliente(Cliente cliente) {
         List<Reserva> resultados = new ArrayList<>();
 
@@ -205,11 +166,9 @@ public class Datos {
                 resultados.add(reserva);
             }
         }
-
         return resultados;
     }
 
-    // Buscar reservas de un hotel
     public List<Reserva> buscarReservasPorHotel(Hotel hotel) {
         List<Reserva> resultados = new ArrayList<>();
 
@@ -221,11 +180,9 @@ public class Datos {
                 }
             }
         }
-
         return resultados;
     }
 
-    // Cancelar una reserva por su identificador
     public boolean cancelarReserva(int idReserva) {
         for (Reserva reserva : reservas) {
             if (reserva.getIdReserva() == idReserva) {
@@ -233,7 +190,6 @@ public class Datos {
                 return true;
             }
         }
-
         return false;
     }
 }
