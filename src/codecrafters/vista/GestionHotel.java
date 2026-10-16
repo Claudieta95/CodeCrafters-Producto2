@@ -7,6 +7,7 @@ import codecrafters.controlador.Controlador;
 import codecrafters.modelo.Cliente;
 import codecrafters.modelo.Hotel;
 import codecrafters.modelo.Habitacion;
+import codecrafters.modelo.CapacidadInvalidaException;
 
 public class GestionHotel {
 
@@ -132,7 +133,8 @@ public class GestionHotel {
                                     controlador.listarHabitacionesPorHotel(hotel);
 
                             if (habitaciones.isEmpty()) {
-                                System.out.println("El hotel no tiene habitaciones.");
+                                System.out.println(
+                                        "El hotel no tiene habitaciones.");
                             } else {
                                 for (Habitacion habitacion : habitaciones) {
                                     System.out.println(habitacion);
@@ -151,26 +153,24 @@ public class GestionHotel {
                                 int personas = scanner.nextInt();
                                 scanner.nextLine();
 
-                                if (personas <= 0) {
-                                    System.out.println(
-                                            "El número de personas debe ser positivo.");
-                                } else {
-                                    boolean encontrada = false;
+                                try {
+                                    List<Habitacion> habitaciones =
+                                            controlador.filtrarHabitacionesPorCapacidad(
+                                                    hotel, personas);
 
-                                    for (Habitacion habitacion :
-                                            controlador.listarHabitacionesPorHotel(hotel)) {
-
-                                        if (habitacion.getCapacidad() >= personas) {
-                                            System.out.println(habitacion);
-                                            encontrada = true;
-                                        }
-                                    }
-
-                                    if (!encontrada) {
+                                    if (habitaciones.isEmpty()) {
                                         System.out.println(
                                                 "No hay habitaciones con esa capacidad.");
+                                    } else {
+                                        for (Habitacion habitacion : habitaciones) {
+                                            System.out.println(habitacion);
+                                        }
                                     }
+                                } catch (CapacidadInvalidaException e) {
+                                    System.out.println(
+                                            "Error: " + e.getMessage());
                                 }
+
                             } else {
                                 System.out.println("Introduce un número válido.");
                                 scanner.nextLine();

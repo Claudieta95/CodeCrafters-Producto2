@@ -1,6 +1,7 @@
 package codecrafters.modelo;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.time.LocalDate;
 
@@ -14,6 +15,33 @@ public class Datos {
         this.clientes = new ArrayList<>();
         this.hoteles = new ArrayList<>();
         this.reservas = new ArrayList<>();
+
+        // Hoteles y habitaciones de ejemplo para probar la aplicación
+        Hotel hotelBarcelona = new Hotel(
+                1,
+                "Hotel Barcelona Centro",
+                "Barcelona",
+                4,
+                new ArrayList<>(Arrays.asList(
+                        new Habitacion(1, 101, "Individual", 1, 65.0),
+                        new Habitacion(2, 102, "Doble", 2, 95.0),
+                        new Habitacion(3, 103, "Familiar", 4, 150.0)
+                ))
+        );
+
+        Hotel hotelSabadell = new Hotel(
+                2,
+                "Hotel Sabadell",
+                "Sabadell",
+                3,
+                new ArrayList<>(Arrays.asList(
+                        new Habitacion(4, 201, "Doble", 2, 80.0),
+                        new Habitacion(5, 202, "Familiar", 3, 120.0)
+                ))
+        );
+
+        agregarHotel(hotelBarcelona);
+        agregarHotel(hotelSabadell);
     }
 
     public List<Cliente> getClientes() {
@@ -58,7 +86,6 @@ public class Datos {
         return resultados;
     }
 
-    
     // Añadir un hotel
     public void agregarHotel(Hotel hotel) {
         if (hotel != null) {
@@ -88,13 +115,36 @@ public class Datos {
         return resultados;
     }
 
-    
     // Listar las habitaciones de un hotel
     public List<Habitacion> listarHabitacionesPorHotel(Hotel hotel) {
         List<Habitacion> resultados = new ArrayList<>();
 
         if (hotel != null && hotel.getHabitaciones() != null) {
             resultados.addAll(hotel.getHabitaciones());
+        }
+
+        return resultados;
+    }
+
+    // Filtrar habitaciones por número de personas
+    public List<Habitacion> filtrarHabitacionesPorCapacidad(
+            Hotel hotel, int numeroPersonas) {
+
+        if (numeroPersonas <= 0) {
+            throw new CapacidadInvalidaException(
+                    "El número de personas debe ser mayor que cero.");
+        }
+
+        List<Habitacion> resultados = new ArrayList<>();
+
+        if (hotel == null) {
+            return resultados;
+        }
+
+        for (Habitacion habitacion : listarHabitacionesPorHotel(hotel)) {
+            if (habitacion.getCapacidad() >= numeroPersonas) {
+                resultados.add(habitacion);
+            }
         }
 
         return resultados;
@@ -123,15 +173,16 @@ public class Datos {
         return resultados;
     }
 
-    
     // Añadir una reserva
     public void agregarReserva(Reserva reserva) {
         if (reserva == null || !reserva.validarFechas()) {
-            throw new IllegalArgumentException("La reserva no tiene fechas válidas.");
+            throw new IllegalArgumentException(
+                    "La reserva no tiene fechas válidas.");
         }
 
         if (reserva.getLineasReserva().isEmpty()) {
-            throw new IllegalArgumentException("La reserva debe tener al menos una habitación.");
+            throw new IllegalArgumentException(
+                    "La reserva debe tener al menos una habitación.");
         }
 
         if (!reservas.contains(reserva)) {
@@ -185,5 +236,4 @@ public class Datos {
 
         return false;
     }
-
 }

@@ -5,8 +5,8 @@ import codecrafters.modelo.Datos;
 import codecrafters.modelo.Hotel;
 import codecrafters.modelo.Habitacion;
 import codecrafters.modelo.Reserva;
-import java.time.LocalDate;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class Controlador {
@@ -53,11 +53,17 @@ public class Controlador {
         return datos.listarHabitacionesPorHotel(hotel);
     }
 
+    public List<Habitacion> filtrarHabitacionesPorCapacidad(
+            Hotel hotel, int numeroPersonas) {
+        return datos.filtrarHabitacionesPorCapacidad(hotel, numeroPersonas);
+    }
+
     public List<Habitacion> buscarHabitacionesDisponibles(
-        Hotel hotel, LocalDate fechaEntrada, LocalDate fechaSalida,
-        int numeroPersonas) {
-    return datos.buscarHabitacionesDisponibles(
-            hotel, fechaEntrada, fechaSalida, numeroPersonas);
+            Hotel hotel, LocalDate fechaEntrada, LocalDate fechaSalida,
+            int numeroPersonas) {
+
+        return datos.buscarHabitacionesDisponibles(
+                hotel, fechaEntrada, fechaSalida, numeroPersonas);
     }
 
     // Gestión de reservas
