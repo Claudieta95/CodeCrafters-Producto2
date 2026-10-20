@@ -1,3 +1,4 @@
+package codecrafters.modelo;
 public class LineaReserva {
     private double precioNoche;
     private Reserva reserva;
@@ -9,14 +10,19 @@ public class LineaReserva {
         this.reserva = reserva;
     
         
-    if (reserva != null && reserva.getLineasReserva() != null && !reserva.getLineasReserva().contains(this)) {
-        reserva.getLineasReserva().add(this);
-            }
-
+        if (reserva != null && reserva.getLineasReserva() != null && !reserva.getLineasReserva().contains(this)) {
+            reserva.getLineasReserva().add(this);
         }
-    public double getPrecioNoche() {
-        return precioNoche;
+
+        if (habitacion != null) {
+            habitacion.agregarLineaReserva(this);
+        }
+
     }
+            
+        public double getPrecioNoche() {
+            return precioNoche;
+        }
 
     public void setPrecioNoche(double precioNoche) {
         this.precioNoche = precioNoche;

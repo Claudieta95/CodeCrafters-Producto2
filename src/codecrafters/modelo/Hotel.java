@@ -1,4 +1,4 @@
-import java.time.LocalDate;
+package codecrafters.modelo;
 import java.util.List;
 
 public class Hotel {
@@ -15,19 +15,12 @@ public class Hotel {
         this.ciudad = ciudad;
         this.estrellas = estrellas;
         this.habitaciones = habitaciones;
-    }   
 
-    // Métodos contar habitaciones disponibles
-    public int contarHabitacionesDisponibles(LocalDate fechaEntrada, LocalDate fechaSalida) {
-        int count = 0;
         if (habitaciones != null) {
             for (Habitacion habitacion : habitaciones) {
-                if (habitacion.estaDisponible(fechaEntrada, fechaSalida)) {
-                    count++;
-                }
+                habitacion.setHotel(this);
             }
         }
-        return count;
     }
 
     // Getters y Setters
@@ -69,15 +62,17 @@ public class Hotel {
 
     public void setHabitaciones(List<Habitacion> habitaciones) {
         this.habitaciones = habitaciones;
-    }
-    public void setHotel(Hotel hotel) {
-        for (Habitacion habitacion : habitaciones) {
-            habitacion.setHotel(hotel);
+
+        if (habitaciones != null) {
+            for (Habitacion habitacion : habitaciones) {
+                habitacion.setHotel(this);
+            }
         }
     }
 
-    @Override
-    public String toString() {
+
+@Override
+public String toString() {
         return "Hotel{" +
                 "idHotel=" + idHotel +
                 ", nombre='" + nombre + '\'' +

@@ -1,3 +1,5 @@
+package codecrafters.modelo;
+import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -18,8 +20,14 @@ public class Habitacion {
         this.capacidad = capacidad;
         this.precioNoche = precioNoche;
         this.hotel = null;
-        this.lineasReserva = null;
+        this.lineasReserva = new ArrayList<>();
     }   
+
+    public void agregarLineaReserva(LineaReserva linea) {
+        if (linea != null && !lineasReserva.contains(linea)) {
+            lineasReserva.add(linea);
+        }
+    }
     // Método disponibilidad habitacio
     public boolean estaDisponible(LocalDate fechaEntrada, LocalDate fechaSalida) {
         if (fechaEntrada == null || fechaSalida == null || !fechaEntrada.isBefore(fechaSalida)) {
