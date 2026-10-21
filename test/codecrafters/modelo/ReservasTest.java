@@ -45,10 +45,8 @@ public class ReservasTest {
     }
     @Test
     public void testHabitacionNoDisponiblePorSolapamiento() {
-        // Reservamos la habitación del 20 al 25
         reserva.agregarLineaReserva(habitacion, habitacion.getPrecioNoche());
         
-        // Intentamos comprobar si está disponible en fechas que se solapan (ej. del 22 al 26)
         LocalDate nuevaEntrada = LocalDate.of(2026, 10, 22);
         LocalDate nuevaSalida = LocalDate.of(2026, 10, 26);
         
