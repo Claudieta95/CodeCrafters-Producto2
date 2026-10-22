@@ -1,9 +1,16 @@
-package codecrafters.modelo;
+package codecrafters.test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.time.LocalDate;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import codecrafters.modelo.Habitacion;
+import codecrafters.modelo.Reserva;
 
 public class ReservasTest {
 
@@ -43,14 +50,15 @@ public class ReservasTest {
 
         assertFalse(reservaInvalida.validarFechas(), "Las fechas de la reserva no son válidas.");
     }
+
     @Test
     public void testHabitacionNoDisponiblePorSolapamiento() {
         reserva.agregarLineaReserva(habitacion, habitacion.getPrecioNoche());
-        
+
         LocalDate nuevaEntrada = LocalDate.of(2026, 10, 22);
         LocalDate nuevaSalida = LocalDate.of(2026, 10, 26);
-        
-        assertFalse(habitacion.estaDisponible(nuevaEntrada, nuevaSalida), 
-            "La habitación no debería estar disponible porque las fechas se solapan.");
+
+        assertFalse(habitacion.estaDisponible(nuevaEntrada, nuevaSalida),
+                "La habitación no debería estar disponible porque las fechas se solapan.");
     }
 }

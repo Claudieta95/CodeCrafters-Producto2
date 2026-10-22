@@ -2,16 +2,15 @@ package codecrafters.controlador;
 
 import codecrafters.modelo.Cliente;
 import codecrafters.modelo.Datos;
-import codecrafters.modelo.Hotel;
 import codecrafters.modelo.Habitacion;
+import codecrafters.modelo.Hotel;
 import codecrafters.modelo.Reserva;
-
 import java.time.LocalDate;
 import java.util.List;
 
 public class Controlador {
 
-    private Datos datos;
+    private final Datos datos;
 
     public Controlador() {
         this.datos = new Datos();
