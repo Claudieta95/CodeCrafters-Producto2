@@ -1,4 +1,4 @@
-package codecrafters.modelo;
+package codecrafters.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+
+import codecrafters.modelo.CapacidadInvalidaException;
+import codecrafters.modelo.Datos;
+import codecrafters.modelo.Habitacion;
+import codecrafters.modelo.Hotel;
 
 public class DatosTest {
 
